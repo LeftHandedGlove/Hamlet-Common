@@ -1,0 +1,17 @@
+name: 'system_state'
+address: 'localhost'
+user: 'hamlet'
+password: 'hamlet'
+tables:
+  sensors:
+    columns:
+      attribute: 'VARCHAR(50) NOT NULL'
+      value: 'FLOAT DEFAULT 0.0'
+      timestamp: 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'
+      state: 'VARCHAR(20) DEFAULT "UNKNOWN"'
+  services:
+    columns:
+      name: 'VARCHAR(255) NOT NULL'
+      status: 'VARCHAR(255) DEFAULT "UNKNOWN"'
+      pid: 'INT DEFAULT -1'
+      restart_count: 'INT DEFAULT -1'
