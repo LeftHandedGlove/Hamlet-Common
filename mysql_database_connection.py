@@ -4,7 +4,7 @@ import mysql.connector
 import yaml
 import os
 
-from python_utils import print_msg
+from hamlet_common.python_utils import print_msg
 
 class MySQLDatabaseConnection:
     def __init__(self):
