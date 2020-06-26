@@ -4,7 +4,7 @@ import mysql.connector
 import yaml
 import os
 
-from hamlet_common.python_utils import print_msg
+from python_utils import print_msg
 
 class MySQLDatabaseConnection:
     def __init__(self):
@@ -77,4 +77,9 @@ class MySQLDatabaseConnection:
             raise Exception
 
     def drop_table(self, table):
-        self.__cursor.execute("DROP TABLE {0}".format(table))
+        try:
+            self.__cursor.execute("DROP TABLE {0}".format(table))
+        except mysql.connector.errors.ProgrammingError:
+            print_msg("Unable to drop table '{0}', it might not exist.".format(table))
+        except Exception as e:
+            print_msg("Something went wrong when dropping table '{0}': {1}".format(table, e))
