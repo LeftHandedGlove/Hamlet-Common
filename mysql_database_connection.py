@@ -63,12 +63,14 @@ class MySQLDatabaseConnection:
         return result
 
     def create_table(self, table):
+        print_msg("Creating table '{0}'".format(table))
         # Check for table in known tables
         if table in self.__known_tables.keys():
             # Generate the sql query to create the table
             table_column_dict = self.__known_tables[table]['columns']
             create_table_sql = "CREATE TABLE {0}(".format(table)
             for col_name, col_sql_str in table_column_dict.items():
+                print_msg("  Adding column '{0}'".format(col_name))
                 create_table_sql += "{0} {1},".format(col_name, col_sql_str)
             create_table_sql = create_table_sql[:-1] + ")"
             self.command(create_table_sql)
@@ -77,6 +79,7 @@ class MySQLDatabaseConnection:
             raise Exception
 
     def drop_table(self, table):
+        print_msg("Dropping table '{0}'".format(table))
         try:
             self.__cursor.execute("DROP TABLE {0}".format(table))
         except mysql.connector.errors.ProgrammingError:
