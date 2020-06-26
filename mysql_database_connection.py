@@ -67,7 +67,7 @@ class MySQLDatabaseConnection:
         if table in self.__known_tables.keys():
             # Generate the sql query to create the table
             table_column_dict = self.__known_tables[table]['columns']
-            create_table_sql = "CREATE TABLE {0}(".format(table_name)
+            create_table_sql = "CREATE TABLE {0}(".format(table)
             for col_name, col_sql_str in table_column_dict.items():
                 create_table_sql += "{0} {1},".format(col_name, col_sql_str)
             create_table_sql = create_table_sql[:-1] + ")"
@@ -76,5 +76,5 @@ class MySQLDatabaseConnection:
             print_msg("Table '{0}' not in dict of known tables".format(table))
             raise Exception
 
-    def drop_table(self, table_name):
-        self.__cursor.execute("DROP TABLE {0}".format(table_name))
+    def drop_table(self, table):
+        self.__cursor.execute("DROP TABLE {0}".format(table))
